@@ -9,7 +9,7 @@
 class Sprite
 {
 protected:
-	Image* image = nullptr;
+	std::shared_ptr<Image> image;
 	ImageResources* imgRes;
 	Transform t;
 	float alpha = 1.0f;

@@ -1,12 +1,12 @@
 #pragma once
 #include "Image.h"
+#include <unordered_map>
 
 class ImageResources
 {
 public:
-	std::vector<Image> images;
-	std::vector<std::string> imageNames;
+	std::unordered_map<std::string,std::shared_ptr<Image>> images;
 	ImageResources();
-	Image* GetImage(std::string img);
+	std::shared_ptr<Image> GetImage(std::string& img);
 	void AddImage(const char* filePath, std::string imgName);
 };

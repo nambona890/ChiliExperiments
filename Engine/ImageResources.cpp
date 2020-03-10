@@ -7,18 +7,17 @@ ImageResources::ImageResources()
 	AddImage("buzz.png", "buzz");
 }
 
-Image* ImageResources::GetImage(std::string img)
+std::shared_ptr<Image> ImageResources::GetImage(std::string& img)
 {
-	auto it = std::find(imageNames.begin(), imageNames.end(), img);
-	if (it == imageNames.end())
+	auto it = images.find(img);
+	if (it == images.end())
 	{
 		return nullptr;
 	}
-	return &images[it - imageNames.begin()];
+	return it->second;
 }
 
 void ImageResources::AddImage(const char* filePath, std::string imgName)
 {
-	images.emplace_back(Image(filePath));
-	imageNames.emplace_back(imgName);
+	images.emplace(std::make_pair(imgName, std::make_shared<Image>(filePath)));
 }

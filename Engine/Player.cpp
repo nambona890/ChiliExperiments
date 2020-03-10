@@ -2,7 +2,7 @@
 
 Player::Player(ImageResources* imgR) : Entity(imgR)
 {
-	image = imgRes->GetImage("buzz");
+	image = imgRes->GetImage(std::string("buzz"));
 	pos = { 400,500 };
 	t.ScaleNew({ 0.1f,0.1f });
 	radius = 8.0f;
