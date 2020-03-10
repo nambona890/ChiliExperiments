@@ -67,7 +67,7 @@ void Image::setPixel(const int x, const int y, const Color c)
 	}
 }
 
-void Image::draw(const int x, const int y, Graphics& gfx)
+void Image::draw(const int x, const int y, Graphics& gfx, const float a)
 {
 	if (x > -width && y > -height && x < gfx.ScreenWidth + width && y < gfx.ScreenHeight + height)
 	{
@@ -84,7 +84,9 @@ void Image::draw(const int x, const int y, Graphics& gfx)
 						if (pos < image.size())
 						{
 							Color c = { image[pos + 3], image[pos], image[pos + 1], image[pos + 2] };
-							if (c.GetA() == 255)
+							if (a < 1.0f)
+								c.SetA(unsigned char(std::round(std::fmaxf(0.0f, std::fminf(c.GetA() * a, 255.0f)))));
+							if (c.GetA() > 0)
 							{
 								gfx.PutPixel(j, i, c);
 							}
@@ -101,7 +103,7 @@ void Image::draw(const int x, const int y, Graphics& gfx)
 	}
 }
 
-void Image::drawTransform(const int x, const int y, Transform t, Graphics& gfx)
+void Image::drawTransform(const int x, const int y, Transform t, Graphics& gfx, const float a)
 {
 	Vec2 tlV = t.Forward({ 0,0 });
 	Vec2 trV = t.Forward({ (float)width,0 });
@@ -114,7 +116,7 @@ void Image::drawTransform(const int x, const int y, Transform t, Graphics& gfx)
 	float angle = t.getAngle();
 	Vec2 scale = t.getScale();
 	t.Invert();
-	if (x > -maxX && y > -maxY && x < gfx.ScreenWidth + minX && y < gfx.ScreenHeight + minY)
+	if (x > -(maxX - minX) && y > -(maxY - minY) && x < gfx.ScreenWidth + (maxX - minX) && y < gfx.ScreenHeight + (maxY - minY))
 	{
 
 		for (int i = (int)minY; i < (int)maxY; i++)
@@ -129,8 +131,10 @@ void Image::drawTransform(const int x, const int y, Transform t, Graphics& gfx)
 						if (prime.x >= 0.0f && prime.y >= 0.0f && prime.x < width && prime.y < width)
 						{
 							Color c = getPixel((int)prime.x, (int)prime.y);
-							if (c.GetA() == 255)
+							if (c.GetA() > 0)
 							{
+								if (a < 1.0f)
+									c.SetA(unsigned char(std::round(std::fmaxf(0.0f,std::fminf(c.GetA() * a, 255.0f)))));
 								gfx.PutPixel(j + x, i + y, c);
 							}
 						}

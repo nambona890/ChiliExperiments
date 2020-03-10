@@ -5,6 +5,7 @@
 #include "ChiliException.h"
 #include "Vector.h"
 #include "Transform.h"
+#include <optional>
 
 class Image
 {
@@ -33,17 +34,38 @@ public:
 	}
 	void setPixel(const int x, const int y, const Color c);
 	
+
 	void draw(const Vec2 v, Graphics& gfx)
 	{
-		draw((int)v.x, (int)v.y, gfx);
+		draw((int)v.x, (int)v.y, gfx, 1.0f);
 	}
 
-	void draw(const int x, const int y, Graphics& gfx);
+	void draw(const int x, const int y, Graphics& gfx)
+	{
+		draw(x, y, gfx, 1.0f);
+	}
+
+	void draw(const Vec2 v, Graphics& gfx, const float a)
+	{
+		draw((int)v.x, (int)v.y, gfx, a);
+	}
+
+	void draw(const int x, const int y, Graphics& gfx, const float a);
 
 	void drawTransform(const Vec2 v, const Transform t, Graphics& gfx)
 	{
-		drawTransform((int)v.x, (int)v.y, t, gfx);
+		drawTransform((int)v.x, (int)v.y, t, gfx, 1.0f);
 	}
 
-	void drawTransform(const int x, const int y, Transform t, Graphics& gfx);
+	void drawTransform(const int x, const int y, const Transform t, Graphics& gfx)
+	{
+		drawTransform(x, y, t, gfx, 1.0f);
+	}
+
+	void drawTransform(const Vec2 v, const Transform t, Graphics& gfx, const float a)
+	{
+		drawTransform((int)v.x, (int)v.y, t, gfx, a);
+	}
+
+	void drawTransform(const int x, const int y, Transform t, Graphics& gfx, const float a);
 };

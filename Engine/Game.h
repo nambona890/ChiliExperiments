@@ -25,6 +25,7 @@
 #include "Graphics.h"
 #include "Image.h"
 #include "NambonaMath.h"
+#include "Player.h"
 
 class Game
 {
@@ -45,7 +46,6 @@ private:
 	/********************************/
 	/*  User Variables              */
 	/********************************/
-	Image* cumulativeBuf;
-	float angle = 0.0f;
-	Image* muncher;
+	Player* player;
+	ImageResources* imgR;
 };

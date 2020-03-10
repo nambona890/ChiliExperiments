@@ -153,17 +153,21 @@
     <ClInclude Include="Colors.h" />
     <ClInclude Include="COMInitializer.h" />
     <ClInclude Include="DXErr.h" />
+    <ClInclude Include="Entity.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Image.h" />
+    <ClInclude Include="ImageResources.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="lodepng.h" />
     <ClInclude Include="MainWindow.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="NambonaMath.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="SoundEffect.h" />
+    <ClInclude Include="Sprite.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Vector.h" />
   </ItemGroup>
@@ -173,11 +177,13 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="Image.cpp" />
+    <ClCompile Include="ImageResources.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="Mouse.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Transform.cpp" />
   </ItemGroup>

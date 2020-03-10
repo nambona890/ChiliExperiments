@@ -27,8 +27,8 @@ Game::Game( MainWindow& wnd )
 	wnd( wnd ),
 	gfx( wnd )
 {
-	muncher = new Image("munchie.png");
-	cumulativeBuf = new Image(gfx.ScreenWidth, gfx.ScreenHeight);
+	imgR = new ImageResources;
+	player = new Player(imgR);
 }
 
 void Game::Go()
@@ -52,23 +52,6 @@ void Game::ComposeFrame()
 			gfx.PutPixel(x, y, 0, 128, 128);
 		}
 	}
-
-	//for (int i = 0; i < 20; i++)
-	//{
-		angle += 0.02f;
-
-		Vec2 pos = { 0,150 };
-		pos.Rotate(angle);
-		Vec2 munchPos = pos + Vec2{ float(gfx.ScreenWidth / 2) - float(muncher->getWidth() / 2), float(gfx.ScreenHeight / 2) - float(muncher->getHeight() / 2) };
-		Vec2 linePos = pos + Vec2{ float(gfx.ScreenWidth / 2),float(gfx.ScreenHeight / 2) };
-		Transform t;
-		t.Rotate(angle);
-		t.Scale({ 8.5f,8.5f });
-		t.center = { float(muncher->getWidth()) / 2.0f,float(muncher->getHeight()) / 2.0f };
-		muncher->drawTransform(munchPos, t, gfx);
-
-		gfx.DrawLine({ float(gfx.ScreenWidth / 2),float(gfx.ScreenHeight / 2) }, linePos, { 255,255,255,255 });
-		//cumulativeBuf->setPixel((int)munchPos.x, (int)munchPos.y, 255, 255, 255, 255);
-	//}
-	//cumulativeBuf->draw(0, 0, gfx);
+	player->Logic(wnd);
+	player->Draw(gfx);
 }
