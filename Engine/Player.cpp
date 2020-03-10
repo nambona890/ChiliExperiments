@@ -1,8 +1,8 @@
 #include "Player.h"
 
-Player::Player(ImageResources* imgR)
+Player::Player(ImageResources* imgR) : Entity(imgR)
 {
-	image = imgR->GetImage("buzz");
+	image = imgRes->GetImage("buzz");
 	pos = { 400,500 };
 	t.ScaleNew({ 0.1f,0.1f });
 	radius = 8.0f;
