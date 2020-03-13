@@ -26,6 +26,8 @@
 #include "Image.h"
 #include "NambonaMath.h"
 #include "Player.h"
+#include "Bullet.h"
+#include "Enemy.h"
 
 class Game
 {
@@ -48,4 +50,7 @@ private:
 	/********************************/
 	Player* player;
 	ImageResources* imgR;
+	unsigned int globalTimer = 0;
+	std::vector<Bullet> bullets;
+	std::vector<Enemy> enemies;
 };

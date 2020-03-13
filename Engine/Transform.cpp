@@ -16,11 +16,12 @@ void Transform::Scale(const Vec2 v)
 
 Vec2 Transform::Forward(Vec2 v)
 {
-	v = v - center;
+	v = v + center;
 	Vec2 vp = {
-		(A * v.x) + (B * v.y) + translation.x + center.x,
-		(C * v.x) + (D * v.y) + translation.y + center.y
+		(A * v.x) + (B * v.y) + translation.x,
+		(C * v.x) + (D * v.y) + translation.y
 	};
+	vp = vp - center;
 	return vp;
 }
 

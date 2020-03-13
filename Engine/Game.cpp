@@ -29,6 +29,7 @@ Game::Game( MainWindow& wnd )
 {
 	imgR = new ImageResources;
 	player = new Player(imgR);
+	enemies.emplace_back(Enemy(imgR, { 200,-50 }));
 }
 
 void Game::Go()
@@ -49,9 +50,31 @@ void Game::ComposeFrame()
 	{
 		for (int y = 0; y < gfx.ScreenHeight; y++)
 		{
-			gfx.PutPixel(x, y, 0, 128, 128);
+			gfx.PutPixel(x, y, Color(128, 0, 128, 128));
 		}
 	}
-	player->Logic(wnd);
+	player->Logic(wnd,globalTimer,bullets);
+
+
+	for (Bullet& b : bullets)
+	{
+		b.Logic(wnd, globalTimer);
+		b.Draw(gfx);
+	}
+
+	std::remove_if(bullets.begin(), bullets.end(), [](Bullet b) {return !b.GetDestroy(); });
+
+	for (Enemy& e : enemies)
+	{
+		e.Logic(wnd, globalTimer, bullets);
+		e.Draw(gfx);
+	}
+
+	std::remove_if(enemies.begin(), enemies.end(), [](Enemy e) {return !e.GetDestroy(); });
+
 	player->Draw(gfx);
+
+	imgR->GetImage(std::string("gui"))->draw(0, 0, gfx);
+
+	globalTimer++;
 }

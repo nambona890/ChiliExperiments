@@ -4,22 +4,36 @@
 class Entity : public Sprite
 {
 protected:
-	int deathTimer = 0;
-	float radius = 0.0f;
+	float radius;
+	bool alive = true;
+	bool destroy = false;
 public:
 	Entity(ImageResources* imgR) : Sprite(imgR)
 	{
 
 	}
-	bool CheckCollision(Vec2 exPos)
+	bool GetAlive()
 	{
-		return (pos - exPos).Distance() < radius;
+		return alive;
+	}
+	bool GetDestroy()
+	{
+		return destroy;
+	}
+	bool CheckCollision(Vec2 exPos, const float exRad)
+	{
+		return (pos - exPos).Distance() < radius + exRad;
 	}
 	void Kill()
 	{
-		if (deathTimer == 0)
-		{
-			deathTimer++;
-		}
+		alive = false;
+	}
+	void Destroy()
+	{
+		destroy = true;
+	}
+	float GetRadius()
+	{
+		return radius;
 	}
 };

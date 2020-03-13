@@ -358,8 +358,21 @@ void Graphics::DrawLine(Vec2 v1, Vec2 v2, Color c)
 
 void Graphics::PutPixel( int x,int y,Color c )
 {
-	if(x >= 0 && x < int(Graphics::ScreenWidth) && y >= 0 && y < int(Graphics::ScreenHeight))
-		pSysBuffer[Graphics::ScreenWidth * y + x] = c;
+	if (x >= 0 && x < int(Graphics::ScreenWidth) && y >= 0 && y < int(Graphics::ScreenHeight))
+	{
+		if (c.GetA() > 0)
+		{
+			if (c.GetA() < 255)
+			{
+				Color c2 = pSysBuffer[Graphics::ScreenWidth * y + x];
+				c.SetR((unsigned char)((float)c2.GetR()*(float(255 - c.GetA())))+ (unsigned char)((float)c.GetR()*(float(c.GetA()))));
+				c.SetG((unsigned char)((float)c2.GetG()*(float(255 - c.GetA())))+ (unsigned char)((float)c.GetG()*(float(c.GetA()))));
+				c.SetB((unsigned char)((float)c2.GetB()*(float(255 - c.GetA())))+ (unsigned char)((float)c.GetB()*(float(c.GetA()))));
+				
+			}
+			pSysBuffer[Graphics::ScreenWidth * y + x] = c;
+		}
+	}
 }
 
 

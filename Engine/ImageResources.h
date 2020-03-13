@@ -8,5 +8,5 @@ public:
 	std::unordered_map<std::string,std::shared_ptr<Image>> images;
 	ImageResources();
 	std::shared_ptr<Image> GetImage(std::string& img);
-	void AddImage(const char* filePath, std::string imgName);
+	std::shared_ptr<Image> AddImage(const char* filePath, std::string imgName);
 };

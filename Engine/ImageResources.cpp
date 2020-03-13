@@ -2,9 +2,10 @@
 
 ImageResources::ImageResources()
 {
-	AddImage("munch1.png", "muncher1");
-	AddImage("munch2.png", "muncher2");
-	AddImage("buzz.png", "buzz");
+	AddImage("gui.png", "gui");
+	
+	AddImage("bullet2.png", "bullet2");
+	AddImage("bullet3.png", "bullet3");
 }
 
 std::shared_ptr<Image> ImageResources::GetImage(std::string& img)
@@ -17,7 +18,15 @@ std::shared_ptr<Image> ImageResources::GetImage(std::string& img)
 	return it->second;
 }
 
-void ImageResources::AddImage(const char* filePath, std::string imgName)
+std::shared_ptr<Image> ImageResources::AddImage(const char* filePath, std::string imgName)
 {
-	images.emplace(std::make_pair(imgName, std::make_shared<Image>(filePath)));
+	auto it = images.find(imgName);
+	if (it == images.end()||it->second==nullptr)
+	{
+		auto tmpImage = std::make_shared<Image>(Image(filePath));
+		images.emplace(std::make_pair(imgName, tmpImage));
+		return tmpImage;
+	}
+	return it->second;
+
 }
